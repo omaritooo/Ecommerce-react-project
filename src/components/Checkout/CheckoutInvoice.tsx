@@ -40,7 +40,7 @@ const CheckoutInvoice = () => {
                 <td className="text-right text-gray-900">{el.quantity}</td>
                 <td className="text-right text-gray-900">${el.price.toLocaleString()}</td>
                 <td className="text-right text-gray-900">
-                  ${(el.price * el.quantity).toLocaleString()}
+                  {el && el.quantity ? `$${(el.price * el.quantity).toLocaleString()}` : null}
                 </td>
               </tr>
             );

@@ -41,7 +41,7 @@ const SearchPage = () => {
         </div>
       </div>
       <section className="flex flex-wrap justify-center px-4 sm:px-0 lg:justify-start gap-x-4">
-        {data ? (
+        {data && data.products ? (
           data.products.map((el: product) => {
             return <Card loading={isLoading} key={el.id} product={el} />;
           })

@@ -1,7 +1,7 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+import axios, { AxiosRequestConfig } from 'axios';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { product } from '../types';
-import { useNavigation } from 'react-router-dom';
+
 import { useState } from 'react';
 
 interface Data {
@@ -12,10 +12,6 @@ interface Data {
   categories?: string[];
 }
 
-enum Types {
-  IData = 'IData',
-  product = 'ISingleData'
-}
 interface IProps {
   reqName: string;
   request: AxiosRequestConfig;

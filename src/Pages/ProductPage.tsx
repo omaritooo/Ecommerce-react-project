@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import { Link, useLoaderData, useNavigate } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 import useReactQuery from '../hooks/useReactQuery';
-import { getProductConfig, setupResponseInterceptor } from '../repo';
+import { getProductConfig } from '../repo';
 import { BaseImage } from '../components/Base/BaseImage';
-import { QueryClient } from 'react-query';
+
 import { useDispatch } from 'react-redux';
-import { addToCart, emptyCart } from '../store/cartSlice';
-import { product } from '../types';
+import { addToCart } from '../store/cartSlice';
 
 export const ProductPage = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   const product: any = useLoaderData();
 
-  const { data, errorResponse, isLoading } = useReactQuery({
+  const { isLoading } = useReactQuery({
     reqName: 'SingleProduct',
     request: getProductConfig(slug as string)
   });
+  const { data }: any = useLoaderData();
 
   const priceBeforeDiscount = (price: number, discount: number): number => {
     const val = price * ((discount + 100) / 100);

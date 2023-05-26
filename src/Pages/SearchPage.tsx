@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import useReactQuery from '../hooks/useReactQuery';
 import { getSearchConfig } from '../repo';
@@ -15,11 +15,11 @@ const SearchPage = () => {
   const textEmitter = (e: string) => {
     setText(e);
   };
-  const { data, errorResponse, isLoading } = useReactQuery({
+  const { data, isLoading } = useReactQuery({
     reqName: 'SearchProducts',
     request: getSearchConfig(limit, 0, slug as string)
   });
-  const enter = (e: any) => {
+  const enter = () => {
     navigate(`/search/${text}`);
     window.location.reload();
   };

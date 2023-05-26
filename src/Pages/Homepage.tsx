@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import CardDrawer from '../components/Card/CardDrawer';
 import { BaseCollection } from '../components/Base/BaseCollection';
 import useReactQuery from '../hooks/useReactQuery';
@@ -10,11 +10,7 @@ export const Homepage = () => {
     reqName: 'Test',
     request: getProductsConfig(15, 0)
   });
-  const {
-    data: data2,
-    errorResponse: error2,
-    isLoading: isLoading2
-  } = useReactQuery({ reqName: 'Tete', request: getProductsConfig(20, 0) });
+  const { data: data2 } = useReactQuery({ reqName: 'Tete', request: getProductsConfig(20, 0) });
 
   return (
     <>
@@ -24,9 +20,7 @@ export const Homepage = () => {
         <span>{errorResponse.message}</span>
       ) : isLoading ? (
         <span>Loading...</span>
-      ) : (
-        <span>Loaded</span>
-      )}
+      ) : null}
       {!isLoading ? <CardDrawer title="Top Rated" products={data2?.products} /> : <IconLoader />}
     </>
   );

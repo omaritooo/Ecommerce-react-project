@@ -1,28 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router';
 
 import Card from '../components/Card';
 import { product } from '../types';
 import { IconLoader } from '../components/Icons/IconLoader';
-import useReactQuery from '../hooks/useReactQuery';
-import { getCategoryConfig } from '../repo';
+
+import { useLoaderData } from 'react-router-dom';
 
 export const CategoryPage = () => {
   const { slug } = useParams();
   const [limit, setLimit] = useState<number>(10);
-
-  const { data, errorResponse, isLoading } = useReactQuery({
-    reqName: 'Test',
-    request: getCategoryConfig(limit, 0, slug as string)
-  });
+  const dataLoader = useLoaderData();
+  const { data }: any = dataLoader;
 
   return (
-    <>
+    <main className="mt-16 lg:mt-32">
       <h1 className="my-4 text-3xl font-bold uppercase">{slug}</h1>
       <section className="flex flex-wrap justify-start gap-x-4">
         {data ? (
-          data.products.map((el: product) => {
-            return <Card loading={isLoading} key={el.id} product={el} />;
+          data?.products.map((el: product) => {
+            return <Card loading={false} key={el.id} product={el} />;
           })
         ) : (
           <IconLoader />
@@ -37,6 +34,6 @@ export const CategoryPage = () => {
           Show More
         </button>
       )}
-    </>
+    </main>
   );
 };

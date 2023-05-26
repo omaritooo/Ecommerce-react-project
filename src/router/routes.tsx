@@ -1,4 +1,4 @@
-import { createBrowserRouter, useNavigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import React from 'react';
 import { MainLayout } from '../Layouts/MainLayout';
 import { Homepage } from '../Pages/Homepage';
@@ -8,11 +8,8 @@ import { CategoryPage } from '../Pages/CategoryPage';
 import CartPage from '../Pages/CartPage';
 import SearchPage from '../Pages/SearchPage';
 import ErrorPage from '../Pages/ErrorPage';
-import useReactQuery from '../hooks/useReactQuery';
-import { getProductConfig } from '../repo';
-import axios from 'axios';
 
-const loader = {};
+import axios from 'axios';
 
 export const router = createBrowserRouter([
   {
@@ -39,7 +36,8 @@ export const router = createBrowserRouter([
         path: 'categories/:slug',
         element: <CategoryPage />,
         loader: ({ params }) => {
-          const response = axios.get(`https://dummyjson.com/categories/${params.slug}`);
+          const response = axios.get(`https://dummyjson.com/products/category/${params.slug}`);
+
           return response;
         }
       },

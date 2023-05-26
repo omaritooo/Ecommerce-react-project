@@ -5,10 +5,10 @@ export const BaseInput = ({
   enter
 }: {
   text: (e: string) => void;
-  enter: (e: string) => void;
+  enter?: (e: string) => void;
 }) => {
   const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && enter) {
       enter(e.key);
     }
   };

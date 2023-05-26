@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 export const CartDropdown = ({ show }: { show: boolean }) => {
   const totalCost = useSelector(selectTC);
   const cart = useSelector(selectCart);
-  totalCost;
 
   return (
     <>

@@ -1,10 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSelector, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '.';
 import { IReceipt, product } from '../types';
 
 interface CartState {
-  cart: product[];
+  cartItems: product[];
   totalCost: number;
   activeTab: number;
   invoice: IReceipt;
@@ -15,41 +15,41 @@ interface IPayload {
 }
 
 const initialState: CartState = {
-  cart: [],
+  cartItems: [],
   totalCost: 0,
   activeTab: 1,
   invoice: {} as IReceipt
 };
 
 export const cartSlice = createSlice({
-  name: 'cart',
+  name: 'cartSlice',
   initialState,
   reducers: {
     addToCart: (state: CartState, action: PayloadAction<product>) => {
-      const index: number = state.cart.findIndex((obj) => obj.id === action.payload.id);
+      const index: number = state.cartItems.findIndex((obj) => obj.id === action.payload.id);
       if (index !== -1) {
-        state.cart = [
-          ...state.cart.slice(0, index),
+        state.cartItems = [
+          ...state.cartItems.slice(0, index),
           {
-            ...state.cart[index],
-            quantity: (state.cart[index].quantity ?? 0) + (action.payload.quantity ?? 0)
+            ...state.cartItems[index],
+            quantity: (state.cartItems[index].quantity ?? 0) + (action.payload.quantity ?? 0)
           },
-          ...state.cart.slice(index + 1)
+          ...state.cartItems.slice(index + 1)
         ];
       } else {
-        state.cart.push(action.payload);
+        state.cartItems.push(action.payload);
       }
       state.totalCost += action.payload.price;
     },
     emptyCart: (state: CartState) => {
-      state.cart = [];
+      state.cartItems = [];
       state.totalCost = 0;
-      state.cart;
+      state.cartItems;
     },
     removeFromCart: (state, action: PayloadAction<product>) => {
-      const index = state.cart.findIndex((obj) => obj.id === action.payload.id);
+      const index = state.cartItems.findIndex((obj) => obj.id === action.payload.id);
       if (index !== -1) {
-        state.cart.splice(index, 1);
+        state.cartItems.splice(index, 1);
       }
       state.totalCost -= action.payload.price;
     },
@@ -58,43 +58,45 @@ export const cartSlice = createSlice({
         ...action.payload,
         totalCost: state.totalCost
       };
-      state.cart = [];
+      state.cartItems = [];
       state.totalCost = 0;
     },
     updateQuantity: (state: CartState, action: PayloadAction<IPayload>): void => {
-      const index = state.cart.findIndex((obj) => obj.id === action.payload.item.id);
+      const index = state.cartItems.findIndex((obj) => obj.id === action.payload.item.id);
       if (index != -1) {
         if (action.payload.type.toLowerCase() == 'inc') {
-          state.cart = [
-            ...state.cart.slice(0, index),
-            { ...state.cart[index], quantity: (state.cart[index].quantity ?? 0) + 1 },
-            ...state.cart.slice(index + 1)
+          state.cartItems = [
+            ...state.cartItems.slice(0, index),
+            { ...state.cartItems[index], quantity: (state.cartItems[index].quantity ?? 0) + 1 },
+            ...state.cartItems.slice(index + 1)
           ];
-          state.cart[index].quantity;
-          state.totalCost += state.cart[index].price;
+          state.cartItems[index].quantity;
+          state.totalCost += state.cartItems[index].price;
         } else {
-          state.cart = [
-            ...state.cart.slice(0, index),
-            { ...state.cart[index], quantity: (state.cart[index].quantity ?? 0) - 1 },
-            ...state.cart.slice(index + 1)
+          state.cartItems = [
+            ...state.cartItems.slice(0, index),
+            { ...state.cartItems[index], quantity: (state.cartItems[index].quantity ?? 0) - 1 },
+            ...state.cartItems.slice(index + 1)
           ];
-          state.totalCost -= state.cart[index].price;
+          state.totalCost -= state.cartItems[index].price;
         }
       }
     },
     activeTabModifier(state, action: PayloadAction<number>) {
       state.activeTab = action.payload;
-    },
-    addToInvoice: (state: CartState, action: PayloadAction<IReceipt>): void => {
-      state.invoice = [...state.invoice, action.payload];
     }
   }
 });
 
-export const selectCart = (state: CartState) => state.cart.cart as product[];
-export const selectTC = (state: CartState) => state.cart.totalCost as number;
-export const selectActiveTab = (state: CartState) => state.cart.activeTab as number;
-export const selectInvoice = (state: CartState) => state.cart.invoice as IReceipt;
+export const selectCart = createSelector(
+  (state: RootState) => state.cart.cartItems,
+  (cartItems) => {
+    return cartItems;
+  }
+);
+export const selectTC = (state: RootState) => state.cart.totalCost as number;
+export const selectActiveTab = (state: RootState) => state.cart.activeTab as number;
+export const selectInvoice = (state: RootState) => state.cart.invoice as IReceipt;
 export const {
   addToCart,
   removeFromCart,

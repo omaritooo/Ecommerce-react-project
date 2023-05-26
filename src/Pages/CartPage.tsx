@@ -4,7 +4,7 @@ import { activeTabModifier, selectActiveTab, selectCart, selectTC } from '../sto
 import { product } from '../types';
 import CheckoutCart from '../components/Checkout/CheckoutCart';
 import CheckoutSteps from '../components/Checkout/CheckoutSteps';
-import { BaseImage } from '../components/Base/BaseImage';
+
 import CheckoutShipping from '../components/Checkout/CheckoutShipping';
 import CheckoutInvoice from '../components/Checkout/CheckoutInvoice';
 const CartPage = () => {

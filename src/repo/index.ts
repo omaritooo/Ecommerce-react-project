@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { product } from '../types';
 
 const baseUrl = 'https://dummyjson.com';
@@ -16,7 +16,6 @@ export const getProducts = async (limit = 10, skip = 0): Promise<IResponse> => {
 };
 
 export const getProductsConfig = (limit = 10, skip = 0): AxiosRequestConfig<any> => {
-  const url = `/products?${limit}${skip}`;
   return {
     baseURL: baseUrl,
     url: '/products',

@@ -11,9 +11,7 @@ interface IProps {
 
 const CheckoutCart = ({ cart, totalCost }: IProps) => {
   const [page, setPage] = useState<number>(1);
-
   const dispatch = useDispatch();
-
   const [paginatedCart, setPaginatedCart] = useState<product[]>([]);
 
   const currentPage = (el: number) => {

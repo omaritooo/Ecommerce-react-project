@@ -14,6 +14,10 @@ export const TheHeader = () => {
   const textEmitter = (e: string) => {
     setText(e);
   };
+
+  const searchFunction = () => {
+    navigate(`/search/${text}`);
+  };
   useEffect(() => {
     const handleWindowResize = () => {
       setWindowWidth(window.innerWidth);
@@ -74,10 +78,10 @@ export const TheHeader = () => {
         </div>
         {!location.pathname.includes('search') && (
           <div className="hidden w-1/3 mx-auto md:flex md:gap-x-2">
-            <BaseInput text={textEmitter} />
+            <BaseInput enter={searchFunction} text={textEmitter} />
             <button
               onClick={() => {
-                navigate(`/search/${text}`);
+                searchFunction();
               }}
               className="px-3 py-2 text-white bg-black rounded-md">
               Search
@@ -131,7 +135,7 @@ export const TheHeader = () => {
                 </a>
               </li>
               <div className="w-full">
-                <BaseInput text={textEmitter} />
+                <BaseInput enter={searchFunction} text={textEmitter} />
               </div>
             </ul>
           </div>

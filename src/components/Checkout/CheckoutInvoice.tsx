@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { selectCart, selectInvoice, selectTC } from '../../store/cartSlice';
+import { selectInvoice } from '../../store/cartSlice';
 import { product } from '../../types';
 import { Link } from 'react-router-dom';
 

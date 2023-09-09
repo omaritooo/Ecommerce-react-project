@@ -90,6 +90,8 @@ export const ProductPage = () => {
                   return (
                     <li key={idx}>
                       <button
+                        type="button"
+                        title="thumbnail changer"
                         onClick={() => {
                           thumbnailChanger(el);
                         }}
@@ -240,6 +242,8 @@ export const ProductPage = () => {
               </div>
 
               <button
+                title="Add to cart"
+                type="button"
                 onClick={() => {
                   dispatch(addToCart({ ...product.data, quantity: 1 }));
                 }}
@@ -247,7 +251,10 @@ export const ProductPage = () => {
                 Add to cart
               </button>
 
-              <button className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded">
+              <button
+                type="button"
+                title="Notify sale"
+                className="w-full px-6 py-3 text-sm font-bold tracking-wide uppercase bg-gray-100 border border-gray-300 rounded">
                 Notify when on sale
               </button>
             </div>

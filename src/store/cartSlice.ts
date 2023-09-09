@@ -51,7 +51,7 @@ export const cartSlice = createSlice({
       if (index !== -1) {
         state.cartItems.splice(index, 1);
       }
-      state.totalCost -= action.payload.price;
+      state.totalCost -= action.payload.price * action.payload.quantity;
     },
     createInvoice: (state, action: PayloadAction<IReceipt>) => {
       state.invoice = {

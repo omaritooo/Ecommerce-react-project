@@ -12,8 +12,8 @@ export const CartDropdown = ({ show }: { show: boolean }) => {
   return (
     <>
       <section
-        className={`absolute bg-white rounded-md shadow-md z-20 h-fit w-96 right-2 p-4 top-10 transition duration-300 ${
-          show ? 'opacity-100 h-fit' : 'hidden opacity-0 h-0'
+        className={`absolute bg-white rounded-md shadow-md z-30 h-fit w-96 right-2 p-4 top-10 transition duration-300 ${
+          show ? 'opacity-100  h-fit' : 'hidden opacity-0 h-0'
         }`}>
         <div className="px-4 pt-8 pb-4 mx-auto ">
           <h2 className="mb-4 text-2xl font-medium text-gray-800">Shopping Cart</h2>
@@ -34,7 +34,7 @@ export const CartDropdown = ({ show }: { show: boolean }) => {
                     </Link>
                   </>
                 )}
-                )
+
                 <div className="flex items-center justify-between mt-4">
                   <span className="text-lg font-medium text-gray-800">Total:</span>
                   <span className="text-lg font-medium text-gray-800">

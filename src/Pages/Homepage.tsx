@@ -10,18 +10,13 @@ export const Homepage = () => {
     reqName: 'Test',
     request: getProductsConfig(15, 0)
   });
-  const { data: data2 } = useReactQuery({ reqName: 'Tete', request: getProductsConfig(20, 0) });
+  const { data: data2, isLoading: isLoading2 } = useReactQuery({ reqName: 'Tete', request: getProductsConfig(20, 0) });
 
   return (
     <>
       <BaseCollection />
       {data && <CardDrawer title="Trending Now" products={data.products} />}
-      {errorResponse ? (
-        <span>{errorResponse.message}</span>
-      ) : isLoading ? (
-        <span>Loading...</span>
-      ) : null}
-      {!isLoading ? <CardDrawer title="Top Rated" products={data2?.products} /> : <IconLoader />}
+      {!isLoading2 ? <CardDrawer title="Top Rated" products={data2?.products} /> : <IconLoader />}
     </>
   );
 };

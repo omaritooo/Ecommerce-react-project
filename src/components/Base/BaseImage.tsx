@@ -2,12 +2,12 @@ import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 interface IProps {
-  width?: number;
-  height?: number;
+  width?: number | string;
+  height?: number | string;
   alt: string;
   src: string;
   title?: string;
-  styling: string;
+  styling?: string;
 }
 
 export const BaseImage = ({ width, height, alt, src, title, styling }: IProps) => {

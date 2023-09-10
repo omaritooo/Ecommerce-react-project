@@ -11,6 +11,7 @@ export interface product {
   thumbnail: string;
   images: string[];
   quantity: number;
+  liked: boolean;
 }
 
 export interface IUser {

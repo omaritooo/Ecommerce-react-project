@@ -4,12 +4,13 @@ import { product } from '../../types';
 import { BaseImage } from '../Base/BaseImage';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../store/cartSlice';
+import { addToFavourite, removeFromFavourites } from '../../store/favouriteSlice';
 
 export default function Card({ product, loading }: { product: product; loading?: boolean | null }) {
   const dispatch = useDispatch();
   return (
     <div className="relative flex flex-col justify-between my-4 w-[350px] min-w-[250px] sm:min-w-[350px]  overflow-hidden shadow-md group">
-      <Card.Favourite />
+      <Card.Favourite content={product} />
       <Card.Thumbnail title={product.title} id={product.id} thumbnail={product.thumbnail} />
       <div className="relative p-6 ">
         <span className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium">New</span>
@@ -36,28 +37,36 @@ Card.Title = function CardTitle({ id, title }: { id: number; title: string }) {
   );
 };
 
-Card.Favourite = function CardFavourite() {
-  const [clicked, setClick] = useState(false);
+Card.Favourite = function CardFavourite({ content }: { content: product }) {
+  const [clicked, setClick] = useState(content.liked);
+  const dispatch = useDispatch();
+  const liked = () => {
+    if (!content.liked) {
+      dispatch(addToFavourite(content));
+    } else {
+      dispatch(removeFromFavourites(content));
+    }
+  };
 
   return (
     <button
       type="button"
-      className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75">
+      onClick={() => {
+        liked();
+      }}
+      className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 transition hover:text-gray-900/75">
       <span className="sr-only">Wishlist</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={clicked ? 'red' : 'none'}
+        fill={content.liked ? '#000000' : 'none'}
         viewBox="0 0 24 24"
         strokeWidth="1.5"
-        onClick={() => {
-          setClick((clicked) => (clicked = !clicked));
-        }}
         stroke="currentColor"
         className={`
           ${
-            clicked
-              ? 'text-red-500 w-6 h-6 transition duration-150 ease-in-out'
-              : 'text-black-500 w-6 h-6 transition duration-150 ease-in-out'
+            content.liked
+              ? ' w-6 h-6 transition duration-150 ease-in-out'
+              : ' w-6 h-6 transition duration-150 ease-in-out'
           } transition duration-300 ease-in-out
           `}>
         <path

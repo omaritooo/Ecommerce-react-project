@@ -6,6 +6,7 @@ import { CartDropdown } from './Cart/CartDropdown';
 import { CartToggle } from './Cart/CartToggle';
 import { IconHamburger } from './Icons/IconHamburger';
 import { useScroll } from '../hooks/useScroll';
+import { IconFavourite } from './Icons/IconFavourite';
 
 export const TheHeader = () => {
   const { scrollPosition } = useScroll();
@@ -76,8 +77,10 @@ export const TheHeader = () => {
             </button>
           </div>
         ) : null}
-        <CartToggle />
-
+        <div className="flex gap-x-4">
+          <IconFavourite />
+          <CartToggle />
+        </div>
         <div className="flex flex-col items-start justify-between w-screen h-screen md:hidden overflow-none ">
           <ul className="flex flex-col py-4 mt-4 text-lg rounded-lg">
             <li>

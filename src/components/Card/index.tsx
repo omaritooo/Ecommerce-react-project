@@ -38,10 +38,10 @@ Card.Title = function CardTitle({ id, title }: { id: number; title: string }) {
 };
 
 Card.Favourite = function CardFavourite({ content }: { content: product }) {
-  const [clicked, setClick] = useState(content.liked);
+  const [clicked, setClick] = useState(false);
   const dispatch = useDispatch();
   const liked = () => {
-    if (!content.liked) {
+    if (clicked) {
       dispatch(addToFavourite(content));
     } else {
       dispatch(removeFromFavourites(content));
@@ -53,21 +53,20 @@ Card.Favourite = function CardFavourite({ content }: { content: product }) {
       type="button"
       onClick={() => {
         liked();
+        setClick(!clicked);
       }}
-      className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 transition hover:text-gray-900/75">
+      className="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 transition ">
       <span className="sr-only">Wishlist</span>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        fill={content.liked ? '#000000' : 'none'}
+        fill={clicked ? '#D22B2B' : 'none'}
         viewBox="0 0 24 24"
         strokeWidth="1.5"
         stroke="currentColor"
         className={`
           ${
-            content.liked
-              ? ' w-6 h-6 transition duration-150 ease-in-out'
-              : ' w-6 h-6 transition duration-150 ease-in-out'
-          } transition duration-300 ease-in-out
+            clicked ? 'text-transparent ' : 'text-black'
+          } transition duration-300 ease-in-out  w-6 h-6 
           `}>
         <path
           strokeLinecap="round"

@@ -33,6 +33,7 @@ export const favouriteSlice = createSlice({
       const index = state.favouritesItems.findIndex((obj) => obj.id === action.payload.id);
       if (index !== -1) {
         state.favouritesItems.splice(index, 1);
+        console.log(state.favouritesItems)
       }
     },
    

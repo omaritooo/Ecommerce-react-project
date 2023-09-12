@@ -1,7 +1,7 @@
 import React from 'react';
 import CartItem from '../Cart/CartItem';
 import { useSelector } from 'react-redux';
-import { selectCart, selectTC } from '../../store/cartSlice';
+import { selectTC } from '../../store/cartSlice';
 import { product } from '../../types';
 import { Link } from 'react-router-dom';
 
@@ -51,7 +51,11 @@ const BaseDropdownCheckout = () => {
 const BaseDropdownItems = ({ content, cart = false }: { content: product[]; cart?: boolean }) => {
   let items;
   if (content.length === 0) {
-    items = <p className="text-lg text-gray-600">Your cart is empty</p>;
+    items = (
+      <p className="text-lg text-gray-600">
+        {cart ? 'Your cart is empty' : 'No favourites selected'}
+      </p>
+    );
   } else if (content.length <= 3) {
     items = content.map((product: product) => (
       <CartItem key={product.id} cart={cart} product={product} />

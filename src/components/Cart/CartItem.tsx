@@ -2,8 +2,7 @@ import React from 'react';
 import { product } from '../../types';
 import { useDispatch } from 'react-redux';
 import { removeFromCart, updateQuantity } from '../../store/cartSlice';
-
-type Favourite = Omit<product, 'quantity'>;
+import { addToFavourite, removeFromFavourites } from '../../store/favouriteSlice';
 
 const CartItem = ({ product, cart = false }: { product: product; cart?: boolean }) => {
   return (
@@ -97,14 +96,18 @@ CartItem.Actions = function CartItemActions({ product }: { product: product }) {
   );
 };
 
-const CartItemFavourite = ({ content }: { content: Favourite }) => {
+const CartItemFavourite = ({ content }: { content: product }) => {
   const dispatch = useDispatch();
-  // const buttonAction = () => {
-  //   dispatch
-  // }
+  const liked = () => {
+    if (!content.liked) {
+      dispatch(addToFavourite(content));
+    } else {
+      dispatch(removeFromFavourites(content));
+    }
+  };
 
   return (
-    <button type="button" title="favourite">
+    <button onClick={liked} type="button" title="favourite">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         fill={content.liked ? 'red' : 'none'}
